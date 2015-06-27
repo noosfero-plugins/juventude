@@ -2,3 +2,27 @@
 require_relative '../../../config/environment'
 
 puts Article.first.inspect
+
+puts "Populating environment:"
+environment = Environment.default
+puts environment.name
+
+File.open('state.csv').readlines.map do |line|
+  puts line
+  line = line.chomp
+  acronym, name = line.split(',')
+  state = State.find_by_acronym(acronym)
+  state ||= State.new(:environment => environment, :acronym => acronym, :name => name)
+  state.save!
+end
+
+state = nil
+File.open('cities.csv').readlines.map do |line|
+  line = line.chomp
+  puts line
+  acronym, code, name = line.split(',')
+  state = State.find_by_acronym(acronym) if state.nil? || state.acronym != acronym
+  city = City.find_by_name(name)
+  city ||= City.new(:name => name, :parent => state, :environment => environment) 
+  city.save!
+end
