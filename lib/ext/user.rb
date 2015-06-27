@@ -26,4 +26,12 @@ class User
     self.person_data[:transgenero] = value
   end
 
+  def tipo
+    self.person.tipo unless self.person.nil?
+  end
+
+  def tipo= value
+    self.person_data[:tipo] = value
+  end
+
 end
