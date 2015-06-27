@@ -1,0 +1,12 @@
+<h1><%= _('Juventude settings')%></h1>
+
+
+<%= form_for(:settings) do |f| %>
+
+  
+  <% button_bar do %>
+    <%= submit_button(:save, c_('Save'), :cancel => {:controller => 'plugins', :action => 'index'}) %>
+  <% end %>
+
+<% end %>
+
