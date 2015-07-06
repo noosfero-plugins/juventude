@@ -34,4 +34,7 @@ class User
     self.person_data[:tipo] = value
   end
 
+  def category_ids= categories
+    self.person_data[:category_ids] = categories
+  end
 end
