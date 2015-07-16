@@ -8,6 +8,7 @@ class Environment
     orig_custom_person_fields.merge!({'orientacao_sexual' => {"active"=>"true", "required"=>"false", "signup"=>"true"}})
     orig_custom_person_fields.merge!({'identidade_genero' => {"active"=>"true", "required"=>"false", "signup"=>"true"}})
     orig_custom_person_fields.merge!({'transgenero' => {"active"=>"true", "required"=>"false", "signup"=>"true"}})
+    orig_custom_person_fields.merge!({'etnia' => {"active"=>"true", "required"=>"false", "signup"=>"true"}})
   end
 
 end

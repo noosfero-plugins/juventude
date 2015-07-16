@@ -34,6 +34,19 @@ class User
     self.person_data[:tipo] = value
   end
 
+  def etnia
+    self.person.etnia unless self.person.nil?
+  end
+
+  def etnia= value
+    self.person_data[:etnia] = value
+  end
+
+  def city= city
+    city = City.find(city) unless city.kind_of?(City)
+    self.person_data[:region] = city
+  end
+
   def category_ids= categories
     self.person_data[:category_ids] = categories
   end
