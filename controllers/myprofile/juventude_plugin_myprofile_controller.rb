@@ -7,6 +7,8 @@ class JuventudePluginMyprofileController < MyProfileController
     report_path = Time.zone.now.strftime('%Y-%m-%d-%H-%M-%S')
     JuventudePlugin::ReportJob.create_report_path(profile, report_path)
     Delayed::Job.enqueue(JuventudePlugin::ReportJob.new(profile.id, report_path))
+    Delayed::Job.enqueue(JuventudePlugin::PeopleJob.new(profile.id, report_path))
+
     session[:notice] = _("Favor aguardar: o relatório será criado na pasta Relatorios/%s") % report_path
     redirect_to :back
   end

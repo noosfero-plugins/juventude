@@ -31,31 +31,21 @@ class JuventudePlugin::ReportJob < Struct.new(:profile_id, :report_path)
     filepath = "/tmp/#{report_path}/propostas.csv"
 
     CSV.open(filepath, 'w', {:col_sep => ';', :force_quotes => true} ) do |csv|
-      tasks = ProposalsDiscussionPlugin::ProposalTask.all
+      proposals = ProposalsDiscussionPlugin::Proposal.all
       count = 0
-      csv << ['Origem', 'Status', 'Criada em', 'Moderado por', 'Data de Moderado', 'Validado por', 'Data de Validado', 'Autor', 'Proposta', 'Categorias', 'Tema']
-      status_translation = {
-        1 => 'Pendente de Moderacao',
-        2 => 'Rejeitada',
-        3 => 'Aprovada',
-        5 => 'Pre Aprovada',
-        6 => 'Pre Rejeitada',
-      }
-      tasks.map do |task|
+      csv << ['Identificador','Criada em', 'Autor', 'Titulo', 'Proposta', 'Comentarios', 'Seguidores', 'Votos']
+      proposals.map do |proposal|
         count += 1
-        puts "%s de %s: adicionando task: %s" % [count, tasks.count, task.id ]
+        puts "%s de %s: adicionando proposta: %s" % [count, proposals.count, proposal.id ]
         info = []
-        info.push(task.proposal_source)
-        info.push(status_translation[task.status])
-        info.push(task.created_at.strftime("%d/%m/%y %H:%M"))
-        info.push(task.proposal_evaluation.present? && task.proposal_evaluation.evaluated_by.present? ? task.proposal_evaluation.evaluated_by.name : '')
-        info.push(task.proposal_evaluation.present? ? task.proposal_evaluation.created_at.strftime("%d/%m/%y %H:%M") : '')
-        info.push(task.closed_by.present? ? task.closed_by.name : '')
-        info.push(task.closed_by.present? ? task.end_date.strftime("%d/%m/%y %H:%M") : '')
-        info.push(task.requestor.present? ? task.requestor.name : '')
-        info.push(task.abstract.present? ? task.abstract.gsub(/\s+/, ' ').strip : '')
-        info.push(task.categories.map {|c| c.name}.join(' '))
-        info.push(task.article_parent.nil? ? '' : task.article_parent.categories.map(&:name).join(' '))
+        info.push(proposal.id)
+        info.push(proposal.created_at.strftime("%d/%m/%y %H:%M"))
+        info.push(proposal.author ? proposal.author.identifier : '')
+        info.push(proposal.title)
+        info.push(proposal.abstract.present? ? proposal.abstract.gsub(/\s+/, ' ').strip : '')
+        info.push(proposal.comments_count)
+        info.push(proposal.followers.count)
+        info.push(proposal.votes_for)
         csv << info
       end
     end
