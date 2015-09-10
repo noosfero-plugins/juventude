@@ -12,4 +12,9 @@ class JuventudePlugin < Noosfero::Plugin
     [JuventudePlugin::API]
   end
 
+  def control_panel_buttons
+    {:title => _('Generate Report'), :icon => 'report', :url => {:controller => 'juventude_plugin_myprofile', :action => :send_report}, :html_options => {:class => 'admin-report'}} if context.send(:current_person).is_admin?
+
+  end
+
 end
