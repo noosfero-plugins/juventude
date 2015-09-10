@@ -1,3 +1,5 @@
+require File.join(Rails.root,'lib','noosfero','api','entities')
+
 module Noosfero
   module API
     module Entities
