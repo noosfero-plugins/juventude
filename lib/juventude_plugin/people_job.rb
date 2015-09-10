@@ -15,21 +15,22 @@ class JuventudePlugin::PeopleJob < JuventudePlugin::ReportJob
     people = Person.all
     filepath = "/tmp/#{report_path}/people.csv"
     CSV.open(filepath, 'w', {:col_sep => ';', :force_quotes => true} ) do |csv|
-      csv << ['Identificador', 'Nome', 'Email', 'Orientação Sexual', 'Identidade de Gênero', 'Transgenero', 'Raça', 'Estado', 'Cidade']
+      csv << ['Identificador','Criado em','Nome', 'Email', 'Orientação Sexual', 'Identidade de Gênero', 'Transgenero', 'Raça', 'Estado', 'Cidade']
       count = 0
       people.map do |person|
         count += 1
         puts "%s de %s: adicionando pessoa: %s" % [count, people.count, person.id ]
         info = []
         info.push(person.identifier)
+        info.push(person.created_at.strftime("%d/%m/%y %H:%M"))
         info.push(person.name)
         info.push(person.email)
         info.push(ORIENTACAO_SEXUAL[person.orientacao_sexual.to_i])
         info.push(GENERO[person.identidade_genero.to_i])
         info.push(person.transgenero)
         info.push(ETNIA[person.etnia.to_i])
-        info.push(person.city ? person.city.name : '')
-        info.push(person.state ? person.state.name : '')
+        info.push(person.city)
+        info.push(person.state)
         csv << info
       end
     end

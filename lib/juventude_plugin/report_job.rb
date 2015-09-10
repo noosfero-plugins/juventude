@@ -33,7 +33,7 @@ class JuventudePlugin::ReportJob < Struct.new(:profile_id, :report_path)
     CSV.open(filepath, 'w', {:col_sep => ';', :force_quotes => true} ) do |csv|
       proposals = ProposalsDiscussionPlugin::Proposal.all
       count = 0
-      csv << ['Identificador','Criada em', 'Autor', 'Titulo', 'Proposta', 'Comentarios', 'Seguidores', 'Votos']
+      csv << ['Identificador','Criada em', 'Autor', 'Eixo', 'Titulo', 'Proposta', 'Comentarios', 'Seguidores', 'Votos', 'Cidade']
       proposals.map do |proposal|
         count += 1
         puts "%s de %s: adicionando proposta: %s" % [count, proposals.count, proposal.id ]
@@ -41,11 +41,13 @@ class JuventudePlugin::ReportJob < Struct.new(:profile_id, :report_path)
         info.push(proposal.id)
         info.push(proposal.created_at.strftime("%d/%m/%y %H:%M"))
         info.push(proposal.author ? proposal.author.identifier : '')
+        info.push(proposal.topic.name)
         info.push(proposal.title)
         info.push(proposal.abstract.present? ? proposal.abstract.gsub(/\s+/, ' ').strip : '')
         info.push(proposal.comments_count)
         info.push(proposal.followers.count)
         info.push(proposal.votes_for)
+        info.push(proposal.cities.map{|c|c.path}.join(','))
         csv << info
       end
     end
