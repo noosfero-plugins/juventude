@@ -19,8 +19,6 @@ class JuventudePlugin::FollowersJob < JuventudePlugin::ReportJob
           count += 1
           puts "%s de %s: adicionando follower da proposta: %s" % [count, amount_proposal_followers, proposal.id ]
           info = []
- => ArticleFollower(id: integer, person_id: integer, article_id: integer, since: datetime, created_at: datetime, updated_at: datetime) 
-
           info.push(article_follower.article_id)
           info.push(article_follower.person.identifier)
           info.push(article_follower.created_at.strftime("%d/%m/%y %H:%M"))
