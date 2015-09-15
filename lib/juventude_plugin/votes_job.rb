@@ -19,7 +19,6 @@ class JuventudePlugin::VotesJob < JuventudePlugin::ReportJob
           count += 1
           puts "%s de %s: adicionando voto da proposta: %s" % [count, amount_proposal_votes, proposal.id ]
           info = []
- => ArticleFollower(id: integer, person_id: integer, article_id: integer, since: datetime, created_at: datetime, updated_at: datetime) 
 
           info.push(vote.voteable_id)
           info.push(vote.voter.identifier)
