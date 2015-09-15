@@ -8,6 +8,9 @@ class JuventudePluginMyprofileController < MyProfileController
     JuventudePlugin::ReportJob.create_report_path(profile, report_path)
     Delayed::Job.enqueue(JuventudePlugin::ReportJob.new(profile.id, report_path))
     Delayed::Job.enqueue(JuventudePlugin::PeopleJob.new(profile.id, report_path))
+    Delayed::Job.enqueue(JuventudePlugin::CommentsJob.new(profile.id, report_path))
+    Delayed::Job.enqueue(JuventudePlugin::FollowersJob.new(profile.id, report_path))
+    Delayed::Job.enqueue(JuventudePlugin::VotesJob.new(profile.id, report_path))
 
     session[:notice] = _("Favor aguardar: o relatório será criado na pasta Relatorios/%s") % report_path
     redirect_to :back
