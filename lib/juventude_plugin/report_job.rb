@@ -45,7 +45,7 @@ class JuventudePlugin::ReportJob < Struct.new(:profile_id, :report_path)
         info.push(proposal.title)
         info.push(proposal.abstract.present? ? proposal.abstract.gsub(/\s+/, ' ').strip : '')
         info.push(proposal.comments.count)
-        info.push(proposal.followers.count)
+        info.push(proposal.person_followers.count)
         info.push(proposal.votes_for)
         info.push(proposal.cities.map{|c|c.path}.join(','))
         csv << info
