@@ -5,7 +5,7 @@ module Noosfero
     module Entities
 
       class Person < Profile
-        expose :orientacao_sexual, :identidade_genero, :transgenero, :etnia
+        expose :orientacao_sexual, :identidade_genero, :transgenero, :etnia, :points, :level, :gamification_plugin_level_percent
       end
 
     end

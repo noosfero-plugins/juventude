@@ -7,7 +7,7 @@ puts "Populating environment:"
 environment = Environment.default
 puts environment.name
 
-File.open('state.csv').readlines.map do |line|
+File.open(File.join(File.dirname(__FILE__),'state.csv')).readlines.map do |line|
   puts line
   line = line.chomp
   acronym, name = line.split(',')
@@ -17,7 +17,7 @@ File.open('state.csv').readlines.map do |line|
 end
 
 state = nil
-File.open('cities.csv').readlines.map do |line|
+File.open(File.join(File.dirname(__FILE__),'cities.csv')).readlines.map do |line|
   line = line.chomp
   puts line
   acronym, code, name = line.split(',')
