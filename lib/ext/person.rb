@@ -6,4 +6,7 @@ class Person
 
   attr_accessible :orientacao_sexual, :identidade_genero, :transgenero, :tipo, :etnia
 
+  def conference_comments
+    Profile['conferencia'].comments_received.where(author_id: id)
+  end
 end
