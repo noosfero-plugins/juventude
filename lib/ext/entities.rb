@@ -81,9 +81,10 @@ module Merit
       ],
       observer_conferencia: [
         {
-          action: 'article_follower#create',
+          action: 'articlefollower#create',
           default_threshold: 5,
           to: :person,
+          model: 'ArticleFollower',
           value: lambda { |article, person| person.present? ? person.article_followers.where(article_id: Article.conference_articles).count : 0 }
         }
       ],
@@ -131,9 +132,10 @@ module Merit
       ],
       articulator_conferencia: [
         {
-          action: 'article_follower#create',
+          action: 'articlefollower#create',
           default_threshold: 5,
           to: :person,
+          model: 'ArticleFollower',
           value: lambda { |article, person| person.present? ? person.article_followers.where(article_id: Article.conference_articles).count : 0 }
         },
         {
