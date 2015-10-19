@@ -2,9 +2,9 @@ require_dependency 'person'
 
 class Person
 
-  settings_items :orientacao_sexual, :identidade_genero, :transgenero, :tipo, :etnia
+  settings_items :orientacao_sexual, :identidade_genero, :transgenero, :tipo, :etnia, :membro_conselho
 
-  attr_accessible :orientacao_sexual, :identidade_genero, :transgenero, :tipo, :etnia
+  attr_accessible :orientacao_sexual, :identidade_genero, :transgenero, :tipo, :etnia, :membro_conselho
 
   def is_profile_complete?
     #FIXME: this check is hardcoded to satisfy a temporary issue.
@@ -14,7 +14,7 @@ class Person
       self.data[:etnia].blank? or
       self.data[:orientacao_sexual].blank? or
       self.data[:state].blank? or
-      self.data[:city].blank?)
+      self.data[:city].blank? or  self.data[:membro_conselho].blank?)
   end
 
   def conference_comments

@@ -5,7 +5,7 @@ module Noosfero
     module Entities
 
       class Person < Profile
-        expose :orientacao_sexual, :identidade_genero, :transgenero, :etnia
+        expose :orientacao_sexual, :identidade_genero, :transgenero, :etnia, :membro_conselho
 
         expose :points do |person, options|
           person.points if person.respond_to?(:points) 

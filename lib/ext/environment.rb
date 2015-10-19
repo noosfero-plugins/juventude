@@ -10,6 +10,7 @@ class Environment
     orig_custom_person_fields.merge!({'transgenero' => {"active"=>"true", "required"=>"false", "signup"=>"true"}})
     orig_custom_person_fields.merge!({'etnia' => {"active"=>"true", "required"=>"false", "signup"=>"true"}})
     orig_custom_person_fields.merge!({'city' => {"active"=>"true", "required"=>"false", "signup"=>"true"}})
+    orig_custom_person_fields.merge!({'membro_conselho' => {"active"=>"true", "required"=>"false", "signup"=>"true"}})
     orig_custom_person_fields
   end
 

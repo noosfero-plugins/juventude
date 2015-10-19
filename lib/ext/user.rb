@@ -50,4 +50,13 @@ class User
   def category_ids= categories
     self.person_data[:category_ids] = categories
   end
+
+  def membro_conselho
+    self.person.membro_conselho unless self.person.nil?
+  end
+
+  def membro_conselho= value
+    self.person_data[:membro_conselho] = value
+  end
+
 end
