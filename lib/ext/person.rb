@@ -18,6 +18,7 @@ class Person
   end
 
   def conference_comments
-    Profile['conferencia'].comments_received.where(author_id: id)
+    profile = Profile['conferencia']
+    profile.nil? ?  [] : profile.comments_received.where(author_id: id)
   end
 end
