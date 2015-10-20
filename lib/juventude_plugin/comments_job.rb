@@ -11,7 +11,7 @@ class JuventudePlugin::CommentsJob < JuventudePlugin::ReportJob
     proposals = ProposalsDiscussionPlugin::Proposal.all
     filepath = "/tmp/#{report_path}/comments.csv"
     CSV.open(filepath, 'w', {:col_sep => ';', :force_quotes => true} ) do |csv|
-      csv << ['Id Comentário','Id Proposta','Data', 'Título', 'Conteúdo','Link']
+      csv << ['Id Comentário','Author','Id Proposta','Data', 'Título', 'Conteúdo','Link']
       proposals.map do |proposal|
         count = 0
         amount_proposal_comments = proposal.comments.count
@@ -20,6 +20,7 @@ class JuventudePlugin::CommentsJob < JuventudePlugin::ReportJob
           puts "%s de %s: adicionando comentario da proposta: %s" % [count, amount_proposal_comments, proposal.id ]
           info = []
           info.push(comment.id)
+          info.push((comment.author.nil? ? '' : comment.author.identifier))
           info.push(proposal.id)
           info.push(comment.created_at.strftime("%d/%m/%y %H:%M"))
           info.push(comment.title)
