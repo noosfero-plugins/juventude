@@ -21,7 +21,7 @@ class JuventudePlugin::VotesJob < JuventudePlugin::ReportJob
           info = []
 
           info.push(vote.voteable_id)
-          info.push(vote.voter.identifier)
+          info.push(vote.voter.nil? ? '' : vote.voter.identifier)
           info.push(vote.created_at.strftime("%d/%m/%y %H:%M"))
           csv << info
         end
