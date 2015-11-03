@@ -1,6 +1,6 @@
 #user .logged-in .gamification-plugin.user-info-template {
-  margin-left: 0 !important
-  padding: 0 !important
+  margin-left: 0 !important;
+  padding: 0 !important;
 }
 #user .logged-in .gamification-plugin.user-info-template * {
   display: none;
