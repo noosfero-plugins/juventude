@@ -67,7 +67,7 @@ module Merit
           action: 'vote#create',
           default_threshold: 5,
           to: lambda {|vote| vote.voteable.author},
-          value: lambda { |vote, author| vote.voteable.profile.identifier == 'conferencia' ? Vote.where(voteable_id: Article.conference_articles.select("articles.id")).for_voteable(vote.voteable).where('vote < 0').count : 0 }
+          value: lambda { |vote, author| (vote.voteable.profile.identifier == 'conferencia' and author.present?)  ? Vote.where(voteable_id: Article.conference_articles.select("articles.id")).for_voteable(vote.voteable).where('vote < 0').count : 0 }
         }
       ],
       votes_performed_conferencia: [
@@ -75,7 +75,7 @@ module Merit
           action: 'vote#create',
           default_threshold: 5,
           to: lambda {|vote| vote.voter},
-          value: lambda { |vote, voter| vote.voteable.profile.identifier == 'conferencia' ? Vote.where(voteable_id: Article.conference_articles.select("articles.id")).for_voter(voter).count : 0}
+          value: lambda { |vote, voter| (vote.voteable.profile.identifier == 'conferencia' and voter.present?) ? Vote.where(voteable_id: Article.conference_articles.select("articles.id")).for_voter(voter).count : 0}
         }
       ],
       creative_conferencia: [
