@@ -17,4 +17,7 @@ class JuventudePlugin < Noosfero::Plugin
 
   end
 
+  def stylesheet?
+    true
+  end
 end
