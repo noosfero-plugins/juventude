@@ -9,6 +9,6 @@ class Article
 
   attr_accessible :free_conference
 
-	scope :conference_articles, joins(:profile).where("profiles.identifier = 'conferencia'")
+  scope :conference_articles, -> { joins(:profile).where("profiles.identifier = 'conferencia'") }
 
 end
